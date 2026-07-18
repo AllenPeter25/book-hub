@@ -3,6 +3,7 @@ package com.example.books_service.controller;
 import com.example.books_service.dto.BookDetailsResponse;
 import com.example.books_service.dto.BookRequest;
 import com.example.books_service.dto.BookResponse;
+import com.example.books_service.enums.BookCategory;
 import com.example.books_service.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,19 @@ public class BooksController {
     @GetMapping("/{id}/details")
     public BookDetailsResponse getBookDetails(@PathVariable Long id) {
         return bookService.getBookDetails(id);
+    }
+
+    @GetMapping("/author/{author}")
+    public List<BookResponse> getBookByAuthor(@PathVariable String author) {
+        return bookService.getBooksByAuthor(author);
+    }
+
+    @GetMapping("/search")
+    public List<BookResponse> searchBooks(
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) BookCategory category
+    ) {
+        return bookService.querySearch(author, title, category);
     }
 }

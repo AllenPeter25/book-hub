@@ -4,6 +4,7 @@ import com.example.books_service.client.InventoryClient;
 import com.example.books_service.client.ReviewClient;
 import com.example.books_service.dto.*;
 import com.example.books_service.entity.Book;
+import com.example.books_service.enums.BookCategory;
 import com.example.books_service.exception.BookNotFound;
 import com.example.books_service.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -112,5 +113,35 @@ public class BookServiceImpl implements BookService {
                 .reviews(bookReviews)
                 .inventory(inventoryBook)
                 .build();
+    }
+
+    @Override
+    public List<BookResponse> getBooksByAuthor(String author) {
+        List<Book> books = repository.findByAuthor(author);
+        return books.stream().map(
+                book -> BookResponse.builder()
+                        .id(book.getId())
+                        .author(book.getAuthor())
+                        .title(book.getTitle())
+                        .price(book.getPrice())
+                        .isbn(book.getIsbn())
+                        .bookCategory(book.getBookCategory())
+                        .build()
+        ).toList();
+    }
+
+    @Override
+    public List<BookResponse> querySearch(String author, String title, BookCategory category) {
+        List<Book> books = repository.querySearch(author, title, category);
+        return books.stream().map(
+                book -> BookResponse.builder()
+                        .id(book.getId())
+                        .author(book.getAuthor())
+                        .title(book.getTitle())
+                        .price(book.getPrice())
+                        .isbn(book.getIsbn())
+                        .bookCategory(book.getBookCategory())
+                        .build()
+        ).toList();
     }
 }
