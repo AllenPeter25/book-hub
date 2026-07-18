@@ -1,5 +1,6 @@
 package com.example.books_service.dto;
 
+import com.example.books_service.enums.BookCategory;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class BookResponse {
     private String author;
     private String isbn;
     private BigDecimal price;
+    private BookCategory bookCategory;
 }

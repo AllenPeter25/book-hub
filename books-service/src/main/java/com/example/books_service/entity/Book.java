@@ -1,6 +1,7 @@
 package com.example.books_service.entity;
 
 
+import com.example.books_service.enums.BookCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,4 +31,7 @@ public class Book {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+    @Enumerated(EnumType.STRING)
+    private BookCategory bookCategory;
 }

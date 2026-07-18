@@ -28,6 +28,7 @@ public class BookServiceImpl implements BookService {
                 .author(request.getAuthor())
                 .isbn(request.getIsbn())
                 .price(request.getPrice())
+                .bookCategory(request.getCategory())
                 .build();
 
         Book savedBook = repository.save(book);
@@ -38,6 +39,7 @@ public class BookServiceImpl implements BookService {
                 .author(savedBook.getAuthor())
                 .isbn(savedBook.getIsbn())
                 .price(savedBook.getPrice())
+                .bookCategory(savedBook.getBookCategory())
                 .build();
     }
 
@@ -54,6 +56,7 @@ public class BookServiceImpl implements BookService {
                                 .author(book.getAuthor())
                                 .isbn(book.getIsbn())
                                 .price(book.getPrice())
+                                .bookCategory(book.getBookCategory())
                                 .build()
                 ).toList();
     }
@@ -67,6 +70,7 @@ public class BookServiceImpl implements BookService {
                 .title(book.getTitle())
                 .isbn(book.getIsbn())
                 .price(book.getPrice())
+                .bookCategory(book.getBookCategory())
                 .build();
     }
 
@@ -77,6 +81,7 @@ public class BookServiceImpl implements BookService {
         existingBook.setTitle(request.getName());
         existingBook.setPrice(request.getPrice());
         existingBook.setIsbn(request.getIsbn());
+        existingBook.setBookCategory(request.getCategory());
         Book savedBook =  repository.save(existingBook);
         return BookResponse.builder()
                 .id(savedBook.getId())
@@ -84,6 +89,7 @@ public class BookServiceImpl implements BookService {
                 .author(savedBook.getAuthor())
                 .price(savedBook.getPrice())
                 .isbn(savedBook.getIsbn())
+                .bookCategory(savedBook.getBookCategory())
                 .build();
     }
 

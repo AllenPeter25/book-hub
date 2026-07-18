@@ -1,7 +1,9 @@
 package com.example.books_service.dto;
 
+import com.example.books_service.enums.BookCategory;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -20,4 +22,7 @@ public class BookRequest {
 
     @DecimalMin(value = "0.0", message = "greater than 0", inclusive = false)
     private BigDecimal price;
+
+    @NotNull(message = "required")
+    private BookCategory category;
 }
