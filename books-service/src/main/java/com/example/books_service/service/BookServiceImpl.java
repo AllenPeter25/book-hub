@@ -7,7 +7,10 @@ import com.example.books_service.entity.Book;
 import com.example.books_service.enums.BookCategory;
 import com.example.books_service.exception.BookNotFound;
 import com.example.books_service.repository.BookRepository;
+import com.example.books_service.service.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +25,10 @@ public class BookServiceImpl implements BookService {
 
     private final ReviewClient reviewClient;
 
+    @Qualifier("emailNotification")
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public BookResponse createBook(BookRequest request) {
         Book book = Book.builder()
@@ -33,6 +40,8 @@ public class BookServiceImpl implements BookService {
                 .build();
 
         Book savedBook = repository.save(book);
+
+        notificationService.notify("Book created");
 
         return BookResponse.builder()
                 .id(savedBook.getId())
